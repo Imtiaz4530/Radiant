@@ -2,8 +2,7 @@
   "collectionName": "components_variation_variations",
   "info": {
     "displayName": "variation",
-    "icon": "dashboard",
-    "description": ""
+    "icon": "apps"
   },
   "options": {},
   "attributes": {
@@ -13,15 +12,15 @@
     },
     "quantity": {
       "type": "integer",
-      "required": true,
-      "default": 0
+      "default": 0,
+      "required": true
     },
-    "productImage": {
+    "image": {
       "allowedTypes": [
         "images"
       ],
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "required": true
     }
   }

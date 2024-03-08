@@ -4,13 +4,12 @@ export interface VariationVariation extends Schema.Component {
   collectionName: 'components_variation_variations';
   info: {
     displayName: 'variation';
-    icon: 'dashboard';
-    description: '';
+    icon: 'apps';
   };
   attributes: {
     color: Attribute.String & Attribute.Required;
     quantity: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>;
-    productImage: Attribute.Media & Attribute.Required;
+    image: Attribute.Media & Attribute.Required;
   };
 }
 
