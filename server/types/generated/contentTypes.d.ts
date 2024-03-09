@@ -794,8 +794,8 @@ export interface ApiBrandBrand extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String & Attribute.Required;
-    brandImage: Attribute.Media & Attribute.Required;
+    name: Attribute.String;
+    brandImage: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -913,15 +913,10 @@ export interface ApiProductProduct extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
-    description: Attribute.Text;
+    title: Attribute.Text;
     price: Attribute.Integer & Attribute.Required;
     releaseDate: Attribute.Integer;
     discount: Attribute.Integer & Attribute.DefaultTo<0>;
-    brand: Attribute.Relation<
-      'api::product.product',
-      'oneToOne',
-      'api::brand.brand'
-    >;
     category: Attribute.Relation<
       'api::product.product',
       'manyToOne',
@@ -935,6 +930,12 @@ export interface ApiProductProduct extends Schema.CollectionType {
     variation: Attribute.Component<'variation.variation', true>;
     productImage: Attribute.Media & Attribute.Required;
     descriptionImage: Attribute.Media;
+    brand: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'api::brand.brand'
+    >;
+    display: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

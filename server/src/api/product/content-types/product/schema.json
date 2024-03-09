@@ -17,7 +17,7 @@
       "required": true,
       "unique": true
     },
-    "description": {
+    "title": {
       "type": "text",
       "required": false
     },
@@ -32,11 +32,6 @@
     "discount": {
       "type": "integer",
       "default": 0
-    },
-    "brand": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::brand.brand"
     },
     "category": {
       "type": "relation",
@@ -63,11 +58,21 @@
       ]
     },
     "descriptionImage": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::brand.brand"
+    },
+    "display": {
+      "type": "string",
+      "required": false
     }
   }
 }
