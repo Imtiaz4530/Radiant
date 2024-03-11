@@ -3,3 +3,7 @@
   height: 100%;
   object-fit: cover;
 }
+
+.imageContainer {
+  border: 3px solid black;
+}

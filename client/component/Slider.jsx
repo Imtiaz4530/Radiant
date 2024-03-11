@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Box } from "@mui/material";
 
 import img1 from "../public/arctic.webp";
-import img2 from "../public/beatbox.webp";
+import img2 from "../public/beatbox1.jpg";
 import img3 from "../public/tussle.webp";
 import styles from "../styles/slider.module.css";
 
@@ -18,7 +18,7 @@ const Slider = () => {
     <Box className="container_tm">
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         {slideImg.map((item) => (
-          <Box key={item}>
+          <Box key={item} className={styles.imageContainer}>
             <SwiperSlide>
               <Image
                 src={item}

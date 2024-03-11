@@ -1,3 +1,36 @@
+import axios from "axios";
+
+export const fetchCatagories = async () => {
+  const res = await axios.post("http://localhost:1337/graphql", {
+    query: `
+        query{
+            categories{
+            data{
+                id
+                attributes{
+                categoryName
+                categoryImage{
+                    data{
+                    id
+                    attributes{
+                        alternativeText
+                        width
+                        height
+                        url
+                        size
+                    }
+                    }
+                }
+                }
+            }
+            }
+        }
+        `,
+  });
+
+  return res.data?.data;
+};
+
 // import axios from "axios";
 
 // export const fetchProducts = async () => {
