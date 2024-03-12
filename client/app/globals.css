@@ -19,6 +19,11 @@ body {
   margin-top: 40px;
 }
 
+/* ---- Bottom Margin ---- */
+.bm {
+  margin-bottom: 40px;
+}
+
 /* ---- For LINK ---- */
 .link {
   color: #fff;

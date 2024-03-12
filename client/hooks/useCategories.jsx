@@ -1,5 +1,5 @@
 "use client";
-import { fetchCatagories } from "@/utils/fetchProducts";
+import { fetchCatagories } from "@/utils/fetchItems";
 import { useQuery, keepPreviousData } from "react-query";
 
 const useCategories = () => {
@@ -15,8 +15,6 @@ const useCategories = () => {
 
     return { id, categoryName, url };
   });
-
-  console.log(data);
 
   return {
     catagoriesData: realItems,

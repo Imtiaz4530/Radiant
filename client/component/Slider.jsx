@@ -11,18 +11,22 @@ import img2 from "../public/beatbox1.jpg";
 import img3 from "../public/tussle.webp";
 import styles from "../styles/slider.module.css";
 
-const slideImg = [img1, img2, img3];
+const slideImg = [
+  { id: 1, img: img1 },
+  { id: 2, img: img2 },
+  { id: 3, img: img3 },
+];
 
 const Slider = () => {
   return (
     <Box className="container_tm">
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         {slideImg.map((item) => (
-          <Box key={item} className={styles.imageContainer}>
+          <Box key={item.id} className={styles.imageContainer}>
             <SwiperSlide>
               <Image
-                src={item}
-                alt={item}
+                src={item.img}
+                alt={"SLIDE IMAGE"}
                 className={styles.img}
                 placeholder="blur"
               />

@@ -2,15 +2,12 @@
 import { Card, Grid, Typography, CardContent } from "@mui/material";
 import Image from "next/image";
 
-import styles from "../../styles/categories.module.css";
+import styles from "@/styles/categories.module.css";
 import useCategories from "@/hooks/useCategories";
-
-const imageLoader = ({ src }) => {
-  return `http://localhost:1337${src}`;
-};
+import { imageLoader } from "@/utils/imageLoader";
+import Loading from "@/component/reusable/Loading";
 
 const BasicCard = ({ url, name }) => {
-  console.log(name);
   return (
     <Card sx={{ minWidth: 275, backgroundColor: "#e0e0e0" }}>
       <CardContent className={styles.content}>
@@ -35,7 +32,7 @@ const CategoryGrid = () => {
     useCategories();
 
   if (catagoriesLoading) {
-    return <Typography variant="h6">LOADING...</Typography>;
+    return <Loading isLoading={catagoriesLoading} />;
   }
 
   if (catagoriesError) {

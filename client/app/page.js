@@ -4,6 +4,7 @@ import Image from "next/image";
 import Slider from "@/component/Slider";
 import discountImage from "../public/discountBanner.png";
 import styles from "./page.module.css";
+import CardContainer from "@/component/CardContainer";
 import Category from "@/component/categories/Category";
 
 const App = () => {
@@ -13,8 +14,11 @@ const App = () => {
 
       <Category />
 
-      <Box className="container_tm">
+      <Box className="container_tm bm">
         <Image alt="banner" src={discountImage} className={styles.img} />
+        <Box className={styles.cards}>
+          <CardContainer dc={true} />
+        </Box>
       </Box>
     </>
   );

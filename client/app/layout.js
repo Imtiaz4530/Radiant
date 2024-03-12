@@ -3,6 +3,7 @@ import "./globals.css";
 import ReactQueryProvider from "@/utils/Provider";
 import Navbar from "@/component/Navbar";
 import DiscountBar from "@/component/DiscountBar";
+import Footer from "@/component/Footer";
 
 const monserrat = Montserrat({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
           <DiscountBar />
           <Navbar />
           <div className="global_padding">{children}</div>
+          <Footer />
         </ReactQueryProvider>
       </body>
     </html>

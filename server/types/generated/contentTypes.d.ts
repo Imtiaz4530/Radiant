@@ -915,7 +915,6 @@ export interface ApiProductProduct extends Schema.CollectionType {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
     title: Attribute.Text;
     price: Attribute.Integer & Attribute.Required;
-    releaseDate: Attribute.Integer;
     discount: Attribute.Integer & Attribute.DefaultTo<0>;
     category: Attribute.Relation<
       'api::product.product',
@@ -936,6 +935,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'api::brand.brand'
     >;
     display: Attribute.String;
+    displayImage: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

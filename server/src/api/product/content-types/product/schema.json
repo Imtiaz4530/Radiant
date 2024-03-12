@@ -25,10 +25,6 @@
       "type": "integer",
       "required": true
     },
-    "releaseDate": {
-      "type": "integer",
-      "required": false
-    },
     "discount": {
       "type": "integer",
       "default": 0
@@ -72,6 +68,14 @@
     },
     "display": {
       "type": "string",
+      "required": false
+    },
+    "displayImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
       "required": false
     }
   }

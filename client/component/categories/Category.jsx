@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-import styles from "../../styles/categories.module.css";
+import styles from "@/styles/categories.module.css";
 import CategoryGrid from "./CategoryGrid";
 
 const Category = () => {
