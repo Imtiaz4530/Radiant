@@ -13,6 +13,7 @@ import {
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Logout, ShoppingBasketOutlined } from "@mui/icons-material";
+import Link from "next/link";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -125,16 +126,18 @@ const Navbar = () => {
         }}
       >
         <Toolbar>
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            sx={{
-              letterSpacing: 5,
-            }}
-          >
-            RADIANT
-          </Typography>
+          <Link href="/" className="link">
+            <Typography
+              variant="h5"
+              noWrap
+              component="div"
+              sx={{
+                letterSpacing: 5,
+              }}
+            >
+              RADIANT
+            </Typography>
+          </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box
             sx={{

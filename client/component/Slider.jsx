@@ -23,7 +23,7 @@ const Slider = () => {
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         {slideImg.map((item) => (
           <Box key={item.id} className={styles.imageContainer}>
-            <SwiperSlide>
+            <SwiperSlide key={item.id}>
               <Image
                 src={item.img}
                 alt={"SLIDE IMAGE"}

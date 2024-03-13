@@ -39,7 +39,6 @@ const Cards = ({ url, name, price, discount }) => {
               sx={{ textDecoration: "line-through" }}
             >
               BDT 3200
-              <hr className={styles.discountCross} />
             </Typography>
           ) : (
             ""
@@ -64,18 +63,20 @@ const ProductCard = ({ data, loading, error }) => {
     return <Loading isLoading={loading} />;
   }
   return (
-    <Grid container spacing={10} className={styles.gridContainer}>
-      {data?.map((item) => (
-        <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-          <Cards
-            url={item.displaYImage}
-            name={item.name}
-            price={item.price}
-            discount={item.discount}
-          />
-        </Grid>
-      ))}
-    </Grid>
+    <Box className={styles.gridContainer}>
+      <Grid container spacing={10} className={styles.gridContainer}>
+        {data?.map((item) => (
+          <Grid key={item.id} item xs={12} sm={12} md={6} lg={4} xl={3}>
+            <Cards
+              url={item.displaYImage}
+              name={item.name}
+              price={item.price}
+              discount={item.discount}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
   );
 };
 

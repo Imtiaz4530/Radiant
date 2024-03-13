@@ -17,7 +17,6 @@ const CardContainer = ({ dc }) => {
     data = discountProducts;
   }
 
-  console.log(data);
   return (
     <>
       {dc ? (

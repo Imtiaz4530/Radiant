@@ -29,3 +29,11 @@ body {
   color: #fff;
   text-decoration: none;
 }
+
+/* ---- TEMPORARY DISCOUNT ---- */
+.discountContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
