@@ -1,7 +1,7 @@
-import axios from "axios";
+import instance from "./axios";
 
 export const fetchCatagories = async () => {
-  const res = await axios.post("http://localhost:1337/graphql", {
+  const res = await instance.post("/graphql", {
     query: `
         query{
             categories{
@@ -32,7 +32,7 @@ export const fetchCatagories = async () => {
 };
 
 export const fetchProducts = async () => {
-  const res = await axios.post("http://localhost:1337/graphql", {
+  const res = await instance.post("/graphql", {
     query: `
         query{
             products(pagination: { page: 1, pageSize: 15 }){

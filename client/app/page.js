@@ -4,7 +4,7 @@ import Image from "next/image";
 import Slider from "@/component/Slider";
 import discountImage from "../public/discountBanner.png";
 import styles from "./page.module.css";
-import CardContainer from "@/component/CardContainer";
+import CardContainer from "@/component/reusable/CardContainer";
 import Category from "@/component/categories/Category";
 import SimpleButton from "@/component/reusable/Button";
 

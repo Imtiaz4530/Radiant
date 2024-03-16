@@ -960,6 +960,7 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     singularName: 'profile';
     pluralName: 'profiles';
     displayName: 'Profile';
+    description: '';
   };
   options: {
     draftAndPublish: true;

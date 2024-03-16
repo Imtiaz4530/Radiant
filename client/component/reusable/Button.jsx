@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 
-const SimpleButton = ({ value, variant, sx }) => {
+const SimpleButton = ({ value, variant, className, ...props }) => {
   return (
-    <Button variant={variant} sx={{ ...sx }}>
+    <Button variant={variant} className={className} {...props}>
       {value}
     </Button>
   );

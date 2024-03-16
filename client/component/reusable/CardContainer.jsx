@@ -1,6 +1,6 @@
 "use client";
 import { useDiscountProduct, useProducts } from "@/hooks/useProducts";
-import ProductCard from "./reusable/ProductCard";
+import ProductCard from "./ProductCard";
 import { usePathname } from "next/navigation";
 
 const CardContainer = ({ dc }) => {
@@ -19,19 +19,11 @@ const CardContainer = ({ dc }) => {
 
   return (
     <>
-      {dc ? (
-        <ProductCard
-          data={data}
-          loading={discountLoading}
-          error={discountError}
-        />
-      ) : (
-        <ProductCard
-          data={productData}
-          loading={productLoading}
-          error={productError}
-        />
-      )}
+      <ProductCard
+        data={dc ? data : productData}
+        loading={dc ? discountLoading : productLoading}
+        error={dc ? discountError : productError}
+      />
     </>
   );
 };

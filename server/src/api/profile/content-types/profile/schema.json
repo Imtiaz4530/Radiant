@@ -4,7 +4,8 @@
   "info": {
     "singularName": "profile",
     "pluralName": "profiles",
-    "displayName": "Profile"
+    "displayName": "Profile",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
