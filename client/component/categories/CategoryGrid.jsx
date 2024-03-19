@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "@/styles/categories.module.css";
 import useCategories from "@/hooks/useCategories";
 import { imageLoader } from "@/utils/imageLoader";
-import Loading from "@/component/reusable/Loading";
+import Loading from "@/component/reusable/loading/GlobalLoading";
 
 const BasicCard = ({ url, name }) => {
   return (

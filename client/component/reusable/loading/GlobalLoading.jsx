@@ -1,7 +1,7 @@
 import React from "react";
 import { FallingLines } from "react-loader-spinner";
 
-const Loading = ({ isLoading }) => {
+const GlobalLoading = ({ isLoading }) => {
   return (
     <FallingLines
       color="#4fa94d"
@@ -12,4 +12,4 @@ const Loading = ({ isLoading }) => {
   );
 };
 
-export default Loading;
+export default GlobalLoading;

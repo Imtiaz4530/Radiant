@@ -3,6 +3,8 @@ import { Alert, Box, Card, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import Input from "@/component/reusable/Form/Input";
 import SimpleButton from "@/component/reusable/Button";
@@ -12,6 +14,9 @@ import { loginUser, registerUser } from "@/utils/authUser";
 const Form = () => {
   const path = usePathname();
   const exactPath = path.split("/")[2];
+  const router = useRouter();
+
+  const [error, setError] = useState("");
 
   const {
     register,
@@ -23,25 +28,39 @@ const Form = () => {
   } = useForm();
 
   const handleSub = async (data) => {
-    if (exactPath === "login") {
-      const data1 = await loginUser(data.email, data.password);
-      console.log(data1);
-    } else if (exactPath === "register") {
-      const data1 = await registerUser(
-        data.username,
-        data.email,
-        data.password
-      );
-      console.log(data1);
-    }
+    try {
+      if (exactPath === "login") {
+        const res = await loginUser(data.email, data.password);
 
-    reset();
+        if (res?.jwt) {
+          localStorage.setItem("token", res.jwt);
+        }
+        router.push("/");
+      } else if (exactPath === "register") {
+        const res = await registerUser(
+          data.username,
+          data.email,
+          data.password
+        );
+
+        if (res?.jwt) {
+          localStorage.setItem("token", res.jwt);
+        }
+        router.push("/");
+      }
+      reset();
+      setError("");
+    } catch (e) {
+      setError(e?.response?.data?.error?.message);
+      console.log(e?.response?.data?.error?.message);
+    }
   };
   return (
     <Card className={styles.formContainer}>
       <Typography variant="h3">
         {exactPath === "login" ? "Login" : "Register"}
       </Typography>
+      {error && <h6>{error}</h6>}
       <form className={styles.form} onSubmit={handleSubmit(handleSub)}>
         <Box className={styles.inputContainer}>
           {exactPath === "register" ? (
@@ -101,13 +120,34 @@ const Form = () => {
               {errors?.password?.message}
             </Alert>
           )}
+          {error && (
+            <Alert
+              severity="error"
+              onClose={() => {
+                clearErrors("password");
+                clearErrors("email");
+              }}
+              className={styles.error}
+            >
+              {error}
+            </Alert>
+          )}
 
-          <SimpleButton
-            type={"submit"}
-            value={"Register"}
-            variant={"contained"}
-            className={styles.button}
-          />
+          {exactPath === "login" ? (
+            <SimpleButton
+              type={"submit"}
+              value={"Login"}
+              variant={"contained"}
+              className={styles.button}
+            />
+          ) : (
+            <SimpleButton
+              type={"submit"}
+              value={"Register"}
+              variant={"contained"}
+              className={styles.button}
+            />
+          )}
 
           {exactPath === "login" ? (
             <Typography>

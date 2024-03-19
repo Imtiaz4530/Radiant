@@ -12,7 +12,7 @@ import { imageLoader } from "@/utils/imageLoader";
 import InfoIcon from "@mui/icons-material/Info";
 
 import styles from "../../styles/discountCard.module.css";
-import Loading from "./Loading";
+import Loading from "./loading/GlobalLoading";
 
 const Cards = ({ url, name, price, discount }) => {
   return (

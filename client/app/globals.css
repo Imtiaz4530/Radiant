@@ -37,3 +37,17 @@ body {
   align-items: center;
   gap: 10px;
 }
+
+/* ---- NAVBAR LOGIN BUTTON ---- */
+.navLoginButton {
+  font-size: 14px;
+  font-weight: bold;
+  width: 150px;
+  padding: 2px;
+  color: white;
+  border: 1px solid white;
+}
+
+.navLoginButton:hover {
+  border: 1px solid white;
+}
