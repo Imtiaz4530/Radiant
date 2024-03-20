@@ -35,7 +35,7 @@ export const fetchProducts = async () => {
   const res = await instance.post("/graphql", {
     query: `
         query{
-            products(pagination: { page: 1, pageSize: 15 }){
+            products(pagination: { page: 1, pageSize: 100 }){
             data{
                 id
                 attributes{

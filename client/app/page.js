@@ -7,6 +7,7 @@ import styles from "./page.module.css";
 import CardContainer from "@/component/reusable/CardContainer";
 import Category from "@/component/categories/Category";
 import SimpleButton from "@/component/reusable/Button";
+import Link from "next/link";
 
 const App = () => {
   return (
@@ -17,18 +18,20 @@ const App = () => {
 
       <Box className="container_tm bm discountContainer">
         <Image alt="banner" src={discountImage} className={styles.img} />
-        <Box className={styles.cards}>
-          <CardContainer dc={true} />
-        </Box>
-        <SimpleButton
-          sx={{
-            width: { xl: "800px", lg: "600px", md: "400px", xs: "90%" },
-            marginTop: "30px",
-            color: "black",
-          }}
-          value={"Show More"}
-          variant={"outlined"}
-        />
+
+        <CardContainer dc={true} />
+
+        <Link href={"/discount"} className="link">
+          <SimpleButton
+            sx={{
+              width: { xl: "800px", lg: "600px", md: "400px", xs: "90%" },
+              marginTop: "30px",
+              color: "black",
+            }}
+            value={"Show More"}
+            variant={"outlined"}
+          />
+        </Link>
       </Box>
     </>
   );

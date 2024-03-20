@@ -33,3 +33,19 @@ export const useHandleLogin = () => {
 
   return { loading };
 };
+
+export const useIsLoggedIn = () => {
+  const router = useRouter();
+  const [logged, setLogged] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setLogged(false);
+      return;
+    }
+    setLogged(true);
+  }, [router]);
+
+  return { logged, setLogged };
+};

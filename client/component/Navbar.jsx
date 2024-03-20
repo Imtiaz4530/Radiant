@@ -15,11 +15,16 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { Logout, ShoppingBasketOutlined } from "@mui/icons-material";
 import Link from "next/link";
 import SimpleButton from "./reusable/Button";
+import { usePathname, useRouter } from "next/navigation";
+import { useIsLoggedIn } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [isLoggedin, setIsLoggedin] = useState(false);
+
+  const { logged, setLogged } = useIsLoggedIn();
+  const router = useRouter();
+  const pathName = usePathname();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -80,6 +85,19 @@ const Navbar = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      {" "}
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -94,26 +112,27 @@ const Navbar = () => {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge color="error">
             <Logout />
           </Badge>
         </IconButton>
         <p>Logout</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
     </Menu>
   );
+
+  const handleLogout = () => {
+    if (localStorage.getItem("token")) {
+      localStorage.removeItem("token");
+      setLogged(false);
+      if (pathName.startsWith("/private")) {
+        router.push("/auth/login");
+        // window.location.reload();
+        return;
+      }
+      // window.location.reload();
+    }
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -141,7 +160,7 @@ const Navbar = () => {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          {isLoggedin ? (
+          {logged ? (
             <>
               <Box
                 sx={{
@@ -167,7 +186,7 @@ const Navbar = () => {
                 </IconButton>
                 <IconButton size="large" color="inherit">
                   <Badge color="error">
-                    <Logout />
+                    <Logout onClick={handleLogout} />
                   </Badge>
                 </IconButton>
               </Box>

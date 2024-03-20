@@ -10,13 +10,15 @@ import Input from "@/component/reusable/Form/Input";
 import SimpleButton from "@/component/reusable/Button";
 import styles from "@/styles/form.module.css";
 import { loginUser, registerUser } from "@/utils/authUser";
+import { useIsLoggedIn } from "@/hooks/useAuth";
 
 const Form = () => {
+  const [error, setError] = useState("");
+
   const path = usePathname();
   const exactPath = path.split("/")[2];
   const router = useRouter();
-
-  const [error, setError] = useState("");
+  const { setLogged } = useIsLoggedIn();
 
   const {
     register,
@@ -34,8 +36,10 @@ const Form = () => {
 
         if (res?.jwt) {
           localStorage.setItem("token", res.jwt);
+          setLogged(true);
         }
         router.push("/");
+        // window.location.reload();
       } else if (exactPath === "register") {
         const res = await registerUser(
           data.username,
@@ -45,8 +49,10 @@ const Form = () => {
 
         if (res?.jwt) {
           localStorage.setItem("token", res.jwt);
+          setLogged(true);
         }
         router.push("/");
+        // window.location.reload();
       }
       reset();
       setError("");
