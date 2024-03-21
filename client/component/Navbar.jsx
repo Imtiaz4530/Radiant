@@ -11,20 +11,13 @@ import {
   Menu,
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MoreIcon from "@mui/icons-material/MoreVert";
 import { Logout, ShoppingBasketOutlined } from "@mui/icons-material";
 import Link from "next/link";
-import SimpleButton from "./reusable/Button";
-import { usePathname, useRouter } from "next/navigation";
-import { useIsLoggedIn } from "@/hooks/useAuth";
+import NavIcon from "./NavIcon";
 
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-
-  const { logged, setLogged } = useIsLoggedIn();
-  const router = useRouter();
-  const pathName = usePathname();
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -40,10 +33,6 @@ const Navbar = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -121,19 +110,6 @@ const Navbar = () => {
     </Menu>
   );
 
-  const handleLogout = () => {
-    if (localStorage.getItem("token")) {
-      localStorage.removeItem("token");
-      setLogged(false);
-      if (pathName.startsWith("/private")) {
-        router.push("/auth/login");
-        // window.location.reload();
-        return;
-      }
-      // window.location.reload();
-    }
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -160,58 +136,15 @@ const Navbar = () => {
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          {logged ? (
-            <>
-              <Box
-                sx={{
-                  display: { xs: "none", md: "flex", lg: "flex" },
-                  gap: { xs: "0px", lg: "15px" },
-                }}
-              >
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <IconButton size="large" color="inherit">
-                  <Badge badgeContent={4} color="error">
-                    <ShoppingBasketOutlined />
-                  </Badge>
-                </IconButton>
-                <IconButton size="large" color="inherit">
-                  <Badge color="error">
-                    <Logout onClick={handleLogout} />
-                  </Badge>
-                </IconButton>
-              </Box>
-              <Box sx={{ display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="show more"
-                  aria-controls={mobileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleMobileMenuOpen}
-                  color="inherit"
-                  sx={{ m: 0, p: 0 }}
-                >
-                  <MoreIcon />
-                </IconButton>
-              </Box>
-            </>
+          {/* NAVICON COMING HERE */}
+          {typeof window !== "undefined" ? (
+            <NavIcon
+              menuId={menuId}
+              mobileMenuId={mobileMenuId}
+              handleProfileMenuOpen={handleProfileMenuOpen}
+            />
           ) : (
-            <Link href={"/auth/login"} className="link">
-              <SimpleButton
-                value={"LOG-IN"}
-                variant={"outlined"}
-                className={"navLoginButton"}
-              />
-            </Link>
+            <Box></Box>
           )}
         </Toolbar>
       </AppBar>

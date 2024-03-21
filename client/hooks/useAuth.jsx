@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const useCheckAuthToken = () => {
@@ -42,10 +42,28 @@ export const useIsLoggedIn = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       setLogged(false);
-      return;
+    } else {
+      setLogged(true);
     }
-    setLogged(true);
   }, [router]);
 
   return { logged, setLogged };
+};
+
+export const useLogout = (setLogged) => {
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const handleLogout = () => {
+    if (localStorage.getItem("token")) {
+      localStorage.removeItem("token");
+      setLogged(false);
+      if (pathName.startsWith("/private")) {
+        router.push("/auth/login");
+        return;
+      }
+    }
+  };
+
+  return { handleLogout };
 };

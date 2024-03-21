@@ -36,10 +36,9 @@ const Form = () => {
 
         if (res?.jwt) {
           localStorage.setItem("token", res.jwt);
-          setLogged(true);
         }
         router.push("/");
-        // window.location.reload();
+        window.location.reload();
       } else if (exactPath === "register") {
         const res = await registerUser(
           data.username,
@@ -49,10 +48,9 @@ const Form = () => {
 
         if (res?.jwt) {
           localStorage.setItem("token", res.jwt);
-          setLogged(true);
         }
         router.push("/");
-        // window.location.reload();
+        window.location.reload();
       }
       reset();
       setError("");
