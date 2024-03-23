@@ -36,7 +36,11 @@ export const useHandleLogin = () => {
 
 export const useIsLoggedIn = () => {
   const router = useRouter();
-  const [logged, setLogged] = useState(false);
+  const [logged, setLogged] = useState(() => {
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
+    return !!token;
+  });
 
   useEffect(() => {
     const token = localStorage.getItem("token");

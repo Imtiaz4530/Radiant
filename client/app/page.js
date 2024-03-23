@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import Image from "next/image";
 
 import Slider from "@/component/Slider";
-import discountImage from "../public/discountBanner.png";
+import discountImage from "../public/discountDashboardBanner.png";
 import styles from "./page.module.css";
 import CardContainer from "@/component/reusable/CardContainer";
 import Category from "@/component/categories/Category";

@@ -1,7 +1,7 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import ReactQueryProvider from "@/utils/Provider";
-import Navbar from "@/component/Navbar";
+import Navbar from "@/component/navbar/Navbar";
 import DiscountBar from "@/component/DiscountBar";
 import Footer from "@/component/Footer";
 

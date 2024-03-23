@@ -13,9 +13,11 @@ import {
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Logout, ShoppingBasketOutlined } from "@mui/icons-material";
 import Link from "next/link";
-import NavIcon from "./NavIcon";
+import dynamic from "next/dynamic";
 
-const Navbar = () => {
+const NavIcon = dynamic(() => import("./NavIcon"), { ssr: false });
+
+const NavbarItem = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
@@ -137,15 +139,11 @@ const Navbar = () => {
           </Link>
           <Box sx={{ flexGrow: 1 }} />
           {/* NAVICON COMING HERE */}
-          {typeof window !== "undefined" ? (
-            <NavIcon
-              menuId={menuId}
-              mobileMenuId={mobileMenuId}
-              handleProfileMenuOpen={handleProfileMenuOpen}
-            />
-          ) : (
-            <Box></Box>
-          )}
+          <NavIcon
+            menuId={menuId}
+            mobileMenuId={mobileMenuId}
+            handleProfileMenuOpen={handleProfileMenuOpen}
+          />
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
@@ -154,4 +152,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarItem;

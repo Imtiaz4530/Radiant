@@ -1,4 +1,4 @@
-import SimpleButton from "./reusable/Button";
+import SimpleButton from "../reusable/Button";
 import { useIsLoggedIn, useLogout } from "@/hooks/useAuth";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Badge, Box, IconButton } from "@mui/material";
