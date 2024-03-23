@@ -10,7 +10,6 @@ import Input from "@/component/reusable/Form/Input";
 import SimpleButton from "@/component/reusable/Button";
 import styles from "@/styles/form.module.css";
 import { loginUser, registerUser } from "@/utils/authUser";
-import { useIsLoggedIn } from "@/hooks/useAuth";
 
 const Form = () => {
   const [error, setError] = useState("");
@@ -18,7 +17,6 @@ const Form = () => {
   const path = usePathname();
   const exactPath = path.split("/")[2];
   const router = useRouter();
-  const { setLogged } = useIsLoggedIn();
 
   const {
     register,

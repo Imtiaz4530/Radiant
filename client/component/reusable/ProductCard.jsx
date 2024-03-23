@@ -13,8 +13,12 @@ import InfoIcon from "@mui/icons-material/Info";
 
 import styles from "../../styles/discountCard.module.css";
 import Loading from "./loading/GlobalLoading";
+import { useRouter } from "next/navigation";
 
-const Cards = ({ url, name, price, discount }) => {
+const Cards = ({ url, name, price, discount, id }) => {
+  const router = useRouter();
+  const discountPrice = Math.round(price - price * (discount / 100));
+
   return (
     <Card sx={{ minWidth: 275, backgroundColor: "#e0e0e0" }}>
       <CardContent className={styles.content}>
@@ -30,7 +34,7 @@ const Cards = ({ url, name, price, discount }) => {
         </Typography>
         <Box className={styles.disCountPriceBox}>
           <Typography variant="body1" color="text.primary">
-            BDT 2500
+            {discount ? `BDT ${discountPrice}` : `BDT ${price}`}
           </Typography>
           {discount ? (
             <Typography
@@ -38,7 +42,7 @@ const Cards = ({ url, name, price, discount }) => {
               color="text.secondary"
               sx={{ textDecoration: "line-through" }}
             >
-              BDT 3200
+              BDT {price}
             </Typography>
           ) : (
             ""
@@ -48,7 +52,12 @@ const Cards = ({ url, name, price, discount }) => {
           <Button size="small" variant="contained" className={styles.cartBtn}>
             Add Cart
           </Button>
-          <Button size="small" variant="outlined" className={styles.detailBtn}>
+          <Button
+            size="small"
+            variant="outlined"
+            className={styles.detailBtn}
+            onClick={() => router.push(`/products/${id}`)}
+          >
             Details
             <InfoIcon />
           </Button>
@@ -72,6 +81,7 @@ const ProductCard = ({ data, loading, error }) => {
               name={item.name}
               price={item.price}
               discount={item.discount}
+              id={item.id}
             />
           </Grid>
         ))}

@@ -5,6 +5,7 @@ export interface VariationVariation extends Schema.Component {
   info: {
     displayName: 'variation';
     icon: 'apps';
+    description: '';
   };
   attributes: {
     color: Attribute.String & Attribute.Required;

@@ -1,5 +1,5 @@
 "use client";
-import { fetchProducts } from "@/utils/fetchItems";
+import { fetchProduct, fetchProducts } from "@/utils/fetchItems";
 import { useQuery, keepPreviousData } from "react-query";
 
 export const useProducts = () => {
@@ -78,5 +78,80 @@ export const useDiscountProduct = () => {
     discountProducts,
     discountError,
     discountLoading,
+  };
+};
+
+export const useProduct = (productId) => {
+  const { data, isLoading, error } = useQuery({
+    queryFn: () => fetchProduct(productId),
+    queryKey: ["Product", productId],
+    placeholderData: keepPreviousData,
+  });
+
+  if (isLoading) {
+    return;
+  }
+  const item = data?.product?.data;
+  const {
+    discount,
+    display,
+    name,
+    price,
+    title,
+    productImage,
+    descriptionImage,
+    category,
+    ratings,
+    variation,
+  } = item.attributes;
+
+  const productImages = productImage?.data?.map((item) => {
+    const {
+      id,
+      attributes: { url },
+    } = item;
+    return { productImageID: id, productImageURL: url };
+  });
+
+  const descriptionImages = descriptionImage?.data?.map((item) => {
+    const {
+      id,
+      attributes: { url },
+    } = item;
+    return { descriptionImageID: id, descriptionImageURL: url };
+  });
+
+  const {
+    id: categoryID,
+    attributes: { categoryName },
+  } = category?.data;
+
+  const itemVariation = variation.map((item) => {
+    const {
+      id,
+      color,
+      image: {
+        data: {
+          id: variationImageID,
+          attributes: { url: variationImageURL },
+        },
+      },
+    } = item;
+
+    return { variationID: id, color, variationImageID, variationImageURL };
+  });
+
+  return {
+    id: item?.id,
+    productImages,
+    name,
+    discount,
+    title,
+    display,
+    price,
+    categoryID,
+    categoryName,
+    descriptionImages,
+    itemVariation,
   };
 };
