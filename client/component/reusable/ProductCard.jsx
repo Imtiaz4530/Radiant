@@ -15,7 +15,7 @@ import styles from "../../styles/discountCard.module.css";
 import Loading from "./loading/GlobalLoading";
 import { useRouter } from "next/navigation";
 
-const Cards = ({ url, name, price, discount, id }) => {
+const Cards = ({ url, name, price, discount, id, categoryName }) => {
   const router = useRouter();
   const discountPrice = Math.round(price - price * (discount / 100));
 
@@ -56,7 +56,9 @@ const Cards = ({ url, name, price, discount, id }) => {
             size="small"
             variant="outlined"
             className={styles.detailBtn}
-            onClick={() => router.push(`/products/${id}`)}
+            onClick={() =>
+              router.push(`/products/${id}?category=${categoryName}`)
+            }
           >
             Details
             <InfoIcon />
@@ -71,6 +73,7 @@ const ProductCard = ({ data, loading, error }) => {
   if (loading) {
     return <Loading isLoading={loading} />;
   }
+
   return (
     <Box className={styles.gridContainer}>
       <Grid container spacing={10} className={styles.gridContainer}>
@@ -82,6 +85,7 @@ const ProductCard = ({ data, loading, error }) => {
               price={item.price}
               discount={item.discount}
               id={item.id}
+              categoryName={item.categoryName}
             />
           </Grid>
         ))}

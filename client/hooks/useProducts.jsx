@@ -88,70 +88,93 @@ export const useProduct = (productId) => {
     placeholderData: keepPreviousData,
   });
 
-  if (isLoading) {
-    return;
-  }
   const item = data?.product?.data;
-  const {
-    discount,
-    display,
-    name,
-    price,
-    title,
-    productImage,
-    descriptionImage,
-    category,
-    ratings,
-    variation,
-  } = item.attributes;
 
-  const productImages = productImage?.data?.map((item) => {
+  let productDetails = {};
+
+  if (item) {
     const {
-      id,
-      attributes: { url },
-    } = item;
-    return { productImageID: id, productImageURL: url };
-  });
+      discount,
+      display,
+      name,
+      price,
+      title,
+      productImage,
+      descriptionImage,
+      category,
+      ratings,
+      variation,
+    } = item?.attributes;
 
-  const descriptionImages = descriptionImage?.data?.map((item) => {
+    const productImages = productImage?.data?.map((item) => {
+      const {
+        id,
+        attributes: { url },
+      } = item;
+      return { productImageID: id, productImageURL: url };
+    });
+
+    const descriptionImages = descriptionImage?.data?.map((item) => {
+      const {
+        id,
+        attributes: { url },
+      } = item;
+      return { descriptionImageID: id, descriptionImageURL: url };
+    });
+
     const {
-      id,
-      attributes: { url },
-    } = item;
-    return { descriptionImageID: id, descriptionImageURL: url };
-  });
+      id: categoryID,
+      attributes: { categoryName },
+    } = category?.data;
 
-  const {
-    id: categoryID,
-    attributes: { categoryName },
-  } = category?.data;
-
-  const itemVariation = variation.map((item) => {
-    const {
-      id,
-      color,
-      image: {
-        data: {
-          id: variationImageID,
-          attributes: { url: variationImageURL },
+    const itemVariation = variation.map((item) => {
+      const {
+        id,
+        color,
+        image: {
+          data: {
+            id: variationImageID,
+            attributes: { url: variationImageURL },
+          },
         },
-      },
-    } = item;
+      } = item;
 
-    return { variationID: id, color, variationImageID, variationImageURL };
-  });
+      return { variationID: id, color, variationImageID, variationImageURL };
+    });
+
+    productDetails = {
+      id: item?.id,
+      productImages,
+      name,
+      discount,
+      title,
+      display,
+      price,
+      categoryID,
+      categoryName,
+      descriptionImages,
+      itemVariation,
+    };
+    // return {
+    //   id: item?.id,
+    //   productImages,
+    //   name,
+    //   discount,
+    //   title,
+    //   display,
+    //   price,
+    //   categoryID,
+    //   categoryName,
+    //   descriptionImages,
+    //   itemVariation,
+    //   isLoading,
+    //   error,
+    // };
+  }
 
   return {
-    id: item?.id,
-    productImages,
-    name,
-    discount,
-    title,
-    display,
-    price,
-    categoryID,
-    categoryName,
-    descriptionImages,
-    itemVariation,
+    data: productDetails,
+    loading: isLoading,
+    error,
   };
 };
