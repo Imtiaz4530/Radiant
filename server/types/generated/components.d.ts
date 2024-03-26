@@ -11,6 +11,7 @@ export interface VariationVariation extends Schema.Component {
     color: Attribute.String & Attribute.Required;
     quantity: Attribute.Integer & Attribute.Required & Attribute.DefaultTo<0>;
     image: Attribute.Media & Attribute.Required;
+    colorCode: Attribute.String;
   };
 }
 

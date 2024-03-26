@@ -1,5 +1,4 @@
-import SimpleButton from "../reusable/Button";
-import { useIsLoggedIn, useLogout } from "@/hooks/useAuth";
+import { useState } from "react";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Badge, Box, IconButton } from "@mui/material";
 import {
@@ -8,6 +7,11 @@ import {
   ShoppingBasketOutlined,
 } from "@mui/icons-material";
 import Link from "next/link";
+
+import { useIsLoggedIn, useLogout } from "@/hooks/useAuth";
+import CartDrawer from "../CartDrawer";
+import SimpleButton from "../reusable/Button";
+import CartManager from "./CartManager";
 
 const NavIcon = ({ menuId, mobileMenuId, handleProfileMenuOpen }) => {
   const { logged, setLogged } = useIsLoggedIn();
@@ -40,9 +44,7 @@ const NavIcon = ({ menuId, mobileMenuId, handleProfileMenuOpen }) => {
               <AccountCircle />
             </IconButton>
             <IconButton size="large" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <ShoppingBasketOutlined />
-              </Badge>
+              <CartManager />
             </IconButton>
             <IconButton size="large" color="inherit">
               <Badge color="error">

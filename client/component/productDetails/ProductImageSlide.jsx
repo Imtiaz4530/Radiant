@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import Image from "next/image";
-import { Box, Card } from "@mui/material";
+import { Card } from "@mui/material";
 
 import styles from "@/styles/productDetails.module.css";
 import { imageLoader } from "@/utils/imageLoader";

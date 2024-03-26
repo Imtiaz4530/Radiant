@@ -15,14 +15,16 @@
 .productDetails_image {
   width: 100%;
   max-width: 837px;
+  min-height: 615px;
 }
 
 .imageCard {
+  height: 100%;
   padding: 40px 50px;
 }
 
 .imageHolder {
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
 }
@@ -158,6 +160,7 @@
 
   .productDetails_image {
     max-width: 600px;
+    min-height: 500px;
   }
 
   .imageCard {
@@ -193,6 +196,7 @@
 
   .productDetails_image {
     max-width: 500px;
+    min-height: 481px;
   }
 
   .imageCard {
@@ -225,6 +229,7 @@
 
   .productDetails_image {
     max-width: 100%;
+    min-height: 100%;
   }
 
   .productDetails_details {
