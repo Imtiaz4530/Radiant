@@ -3,6 +3,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 /* UPPER SECTION */
@@ -121,6 +122,11 @@
 
 .cart_lowerCheckoutBTN:hover {
   background: #000;
+}
+
+.disabledBTN {
+  color: #a5a5a5;
+  cursor: default;
 }
 
 /* RESPONSIVE */

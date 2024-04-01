@@ -4,14 +4,45 @@ import { Box, Button, Typography } from "@mui/material";
 import styles from "@/styles/productDetails.module.css";
 import ProductImageSlider from "@/component/productDetails/ProductImageSlide";
 import SimpleButton from "@/component/reusable/Button";
+import {
+  useAddToCart,
+  useCheckProductAlreadyInCart,
+  useQuantityCheck,
+} from "@/hooks/useCart";
+import { useState } from "react";
 
 const ProductDescription = ({ data }) => {
+  const [selectedColor, setSelectedColor] = useState(null);
+
+  const { handleCart } = useAddToCart(data, selectedColor);
+  const { quntity } = useQuantityCheck(data?.variation);
+  const { itemInCart } = useCheckProductAlreadyInCart(data);
+
+  const handleColorClick = (color, variantQuantity, productQuantity) => {
+    if (productQuantity) {
+      if (productQuantity > variantQuantity) {
+        setSelectedColor(color);
+      }
+    } else if (variantQuantity > 0) {
+      setSelectedColor(color);
+    }
+  };
+
+  const getItemQuantity = (color) => {
+    const selectedItem = itemInCart.find((item) => item.color === color);
+    const variantQuantity = selectedItem ? selectedItem.quantity : 0;
+    const productQuantity = selectedItem ? selectedItem.productQuantity : 0;
+
+    return { variantQuantity, productQuantity };
+  };
+
   let discountPrice;
   if (data?.discount) {
     discountPrice = Math.round(
       data?.price - data?.price * (data?.discount / 100)
     );
   }
+
   return (
     <Box className={styles.productDetails}>
       <Box className={styles.productDetails_image}>
@@ -28,27 +59,43 @@ const ProductDescription = ({ data }) => {
         >
           {data?.discount ? (
             <>
-              Sale Price: BDT {discountPrice}{" "}
+              Sale Price: {discountPrice}.00{" "}
               <span className={styles.productDetails_discountPrice}>
-                BDT {data?.price}
+                {data?.price}.00
               </span>
             </>
           ) : (
-            `Price: ${data?.price}`
+            `Price: ${data?.price}.00`
           )}
         </Typography>
 
         {/* COLOR */}
         <Box className={styles.productDetails_colorContainer}>
-          <Box className={styles.productDetails_colorSelected}>
-            <Box className={styles.productDetails_color}></Box>
-          </Box>
-          <Box className={styles.productDetails_colorSelected}>
-            <Box className={styles.productDetails_color}></Box>
-          </Box>
-          <Box className={styles.productDetails_colorSelected}>
-            <Box className={styles.productDetails_color}></Box>
-          </Box>
+          {data.variation.map((item) => (
+            <Box
+              key={item.id}
+              className={`${styles.productDetails_colorSelected} ${
+                selectedColor === item.color ? styles.selected : ""
+              }`}
+              onClick={
+                itemInCart.length > 0 &&
+                itemInCart.filter((item2) => item2.color === item.color)
+                  .length > 0
+                  ? () =>
+                      handleColorClick(
+                        item.color,
+                        getItemQuantity(item.color).variantQuantity,
+                        getItemQuantity(item.color).productQuantity
+                      )
+                  : () => handleColorClick(item.color, item.quantity)
+              }
+            >
+              <Box
+                className={styles.productDetails_color}
+                sx={{ backgroundColor: item.colorCode }}
+              ></Box>
+            </Box>
+          ))}
         </Box>
 
         {/* BUTTONS */}
@@ -56,7 +103,10 @@ const ProductDescription = ({ data }) => {
           variant={"outlined"}
           value={"ADD TO CART"}
           className={styles.productDetails_cartBTN}
+          onClick={handleCart}
+          disabled={!quntity}
         />
+
         <Button variant="contained" className={styles.productDetails_orderBTN}>
           BUY NOW
           <Typography
@@ -77,3 +127,18 @@ const ProductDescription = ({ data }) => {
 };
 
 export default ProductDescription;
+
+{
+  /* <Box
+              key={item.id}
+              className={`${styles.productDetails_colorSelected} ${
+                selectedColor === item.color ? styles.selected : ""
+              }`}
+              onClick={() => handleColorClick(item.color, item.quantity)}
+            >
+              <Box
+                className={styles.productDetails_color}
+                sx={{ backgroundColor: item.colorCode }}
+              ></Box>
+            </Box> */
+}

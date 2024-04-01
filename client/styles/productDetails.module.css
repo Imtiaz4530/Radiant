@@ -56,8 +56,10 @@
   color: rgb(82, 82, 82);
   text-decoration: line-through;
   font-size: 20px;
+  margin-left: 10px;
 }
 
+/* <---------- COLOR -------->  */
 .productDetails_colorContainer {
   width: 100%;
   height: 60px;
@@ -68,19 +70,23 @@
   cursor: pointer;
 }
 
-.productDetails_color {
-  width: 85%;
-  height: 85%;
-  background-color: aquamarine;
-  border-radius: 50%;
-  border: 3px solid white;
-}
-
 .productDetails_colorSelected {
-  border: 2px solid black;
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productDetails_color {
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+  border: 3px solid white;
+}
+.productDetails_colorSelected.selected {
+  border: 2px solid black;
 }
 
 .productDetails_cartBTN {

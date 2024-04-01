@@ -72,6 +72,7 @@ export const fetchProducts = async () => {
                     id
                     color
                     quantity
+                    colorCode
                     image{
                     data{
                         id
@@ -164,6 +165,7 @@ export const fetchProduct = async (id) => {
                       id
                       color
                       quantity
+                      colorCode
                       image{
                       data{
                           id

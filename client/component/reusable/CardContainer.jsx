@@ -1,15 +1,17 @@
 "use client";
-import { useDiscountProduct, useProducts } from "@/hooks/useProducts";
+import { useCategoryProduct, useDiscountProduct } from "@/hooks/useProducts";
 import ProductCard from "./ProductCard";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const CardContainer = ({ dc }) => {
-  const { productData, productLoading, productError } = useProducts();
   const { discountProducts, discountError, discountLoading } =
     useDiscountProduct();
+  const query = useSearchParams();
+  const findQuery = query.get("category");
+  const { categoryData, productError, productLoading } =
+    useCategoryProduct(findQuery);
 
   const path = usePathname();
-
   let data;
   if (path === "/") {
     data = discountProducts?.slice(0, 8);
@@ -20,7 +22,7 @@ const CardContainer = ({ dc }) => {
   return (
     <>
       <ProductCard
-        data={dc ? data : productData}
+        data={dc ? data : categoryData}
         loading={dc ? discountLoading : productLoading}
         error={dc ? discountError : productError}
       />

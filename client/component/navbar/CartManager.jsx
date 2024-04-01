@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Badge } from "@mui/material";
 import { ShoppingBasketOutlined } from "@mui/icons-material";
-import CartDrawer from "../CartDrawer";
+import CartDrawer from "../cart/CartDrawer";
 
 const CartManager = () => {
   const [state, setState] = useState({

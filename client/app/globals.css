@@ -75,3 +75,8 @@ body {
   border-radius: 100% !important;
   color: white !important;
 }
+
+/* <----------profileButton-----------> */
+.profileButton {
+  height: 24px;
+}

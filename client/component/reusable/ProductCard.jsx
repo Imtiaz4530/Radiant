@@ -14,10 +14,20 @@ import InfoIcon from "@mui/icons-material/Info";
 import styles from "../../styles/discountCard.module.css";
 import Loading from "./loading/GlobalLoading";
 import { useRouter } from "next/navigation";
+import { useAddToCart, useQuantityCheck } from "@/hooks/useCart";
 
-const Cards = ({ url, name, price, discount, id, categoryName }) => {
+const Cards = ({ url, name, price, discount, id, categoryName, data }) => {
   const router = useRouter();
   const discountPrice = Math.round(price - price * (discount / 100));
+
+  const dataa = data.reduce((acc, cur) => {
+    if (cur.id === id) {
+      acc = { ...cur };
+    }
+    return acc;
+  }, {});
+  const { handleCart } = useAddToCart(dataa);
+  const { quntity } = useQuantityCheck(dataa?.variation);
 
   return (
     <Card sx={{ minWidth: 275, backgroundColor: "#e0e0e0" }}>
@@ -34,7 +44,7 @@ const Cards = ({ url, name, price, discount, id, categoryName }) => {
         </Typography>
         <Box className={styles.disCountPriceBox}>
           <Typography variant="body1" color="text.primary">
-            {discount ? `BDT ${discountPrice}` : `BDT ${price}`}
+            {discount ? `BDT. ${discountPrice}.00` : `BDT. ${price}.00`}
           </Typography>
           {discount ? (
             <Typography
@@ -42,14 +52,20 @@ const Cards = ({ url, name, price, discount, id, categoryName }) => {
               color="text.secondary"
               sx={{ textDecoration: "line-through" }}
             >
-              BDT {price}
+              BDT. {price}.00
             </Typography>
           ) : (
             ""
           )}
         </Box>
         <Box className={styles.btnBox}>
-          <Button size="small" variant="contained" className={styles.cartBtn}>
+          <Button
+            size="small"
+            variant="contained"
+            className={styles.cartBtn}
+            onClick={handleCart}
+            disabled={!quntity}
+          >
             Add Cart
           </Button>
           <Button
@@ -86,6 +102,7 @@ const ProductCard = ({ data, loading, error }) => {
               discount={item.discount}
               id={item.id}
               categoryName={item.categoryName}
+              data={data}
             />
           </Grid>
         ))}

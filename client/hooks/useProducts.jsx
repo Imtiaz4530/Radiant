@@ -104,7 +104,12 @@ export const useProduct = (productId) => {
       category,
       ratings,
       variation,
+      displayImage,
     } = item?.attributes;
+
+    const {
+      attributes: { url: displayImageUrl },
+    } = displayImage?.data;
 
     const productImages = productImage?.data?.map((item) => {
       const {
@@ -127,20 +132,29 @@ export const useProduct = (productId) => {
       attributes: { categoryName },
     } = category?.data;
 
-    const itemVariation = variation.map((item) => {
-      const {
-        id,
-        color,
-        image: {
-          data: {
-            id: variationImageID,
-            attributes: { url: variationImageURL },
-          },
-        },
-      } = item;
+    // const itemVariation = variation.map((item) => {
+    //   const {
+    //     id,
+    //     color,
+    //     colorCode,
+    //     quantity,
+    //     image: {
+    //       data: {
+    //         id: variationImageID,
+    //         attributes: { url: variationImageURL },
+    //       },
+    //     },
+    //   } = item;
 
-      return { variationID: id, color, variationImageID, variationImageURL };
-    });
+    //   return {
+    //     variationID: id,
+    //     color,
+    //     colorCode,
+    //     quantity,
+    //     variationImageID,
+    //     variationImageURL,
+    //   };
+    // });
 
     productDetails = {
       id: item?.id,
@@ -153,28 +167,28 @@ export const useProduct = (productId) => {
       categoryID,
       categoryName,
       descriptionImages,
-      itemVariation,
+      displayImageUrl,
+      variation,
     };
-    // return {
-    //   id: item?.id,
-    //   productImages,
-    //   name,
-    //   discount,
-    //   title,
-    //   display,
-    //   price,
-    //   categoryID,
-    //   categoryName,
-    //   descriptionImages,
-    //   itemVariation,
-    //   isLoading,
-    //   error,
-    // };
   }
 
   return {
     data: productDetails,
     loading: isLoading,
     error,
+  };
+};
+
+export const useCategoryProduct = (categorynName) => {
+  const { productData, productLoading, productError } = useProducts();
+
+  const filteredProduct = productData?.filter(
+    (item) => item.categoryName === categorynName
+  );
+
+  return {
+    categoryData: filteredProduct,
+    productLoading,
+    productError,
   };
 };

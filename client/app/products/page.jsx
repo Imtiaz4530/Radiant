@@ -1,33 +1,34 @@
 "use client";
+import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
-import CartDrawer from "@/component/CartDrawer";
-import { useStoreActions, useStoreState } from "easy-peasy";
-import { useEffect, useState } from "react";
+import CardContainer from "@/component/reusable/CardContainer";
+import styles from "@/styles/discountCard.module.css";
+import earbud from "@/public/catagory/c1.webp";
+import brush from "@/public/catagory/c2.webp";
+import headphone from "@/public/catagory/c3.webp";
+import smartwatch from "@/public/catagory/c4.webp";
 
 const Products = () => {
-  const cart = useStoreState((state) => state);
-  const cartAction = useStoreActions((action) => action);
-  const [text, setText] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    cartAction.cart.addText(text);
-  };
+  const query = useSearchParams();
+  const cat = query.get("category");
 
   return (
     <div>
-      <h1>Products</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="text"
-          id="text"
-          onChange={(e) => setText(e.target.value)}
-          value={text}
-        />
-        <button>Save</button>
-      </form>
+      <Image
+        alt="banner"
+        src={
+          cat === "EAR BUDS"
+            ? earbud
+            : cat === "ELECTRIC TOOTHBRUSH"
+            ? brush
+            : cat === "HEADPHONES"
+            ? headphone
+            : smartwatch
+        }
+        className={styles.img}
+      />
+      <CardContainer dc={false} />
     </div>
   );
 };
