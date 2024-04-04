@@ -5,7 +5,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import styles from "@/styles/form.module.css";
 
-const Input = ({ type, label, register, error, ...props }) => {
+const Input = ({ type, label, register, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {

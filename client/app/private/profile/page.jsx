@@ -1,13 +1,12 @@
 import { Box, Typography } from "@mui/material";
 
 import ProtectedRoute from "@/component/protectRoute/ProtectedRoute";
+import ProfileContent from "@/component/profile/ProfileContent";
 
 const Profile = () => {
   return (
     <ProtectedRoute>
-      <Box>
-        <Typography variant="h3">MY Profile</Typography>
-      </Box>
+      <ProfileContent />
     </ProtectedRoute>
   );
 };

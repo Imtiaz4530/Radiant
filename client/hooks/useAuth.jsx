@@ -61,6 +61,7 @@ export const useLogout = (setLogged) => {
   const handleLogout = () => {
     if (localStorage.getItem("token")) {
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
       setLogged(false);
       if (pathName.startsWith("/private")) {
         router.push("/auth/login");

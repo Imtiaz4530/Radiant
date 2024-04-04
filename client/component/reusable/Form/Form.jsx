@@ -22,7 +22,6 @@ const Form = () => {
     register,
     handleSubmit,
     clearErrors,
-    getValues,
     reset,
     formState: { errors },
   } = useForm();
@@ -34,6 +33,7 @@ const Form = () => {
 
         if (res?.jwt) {
           localStorage.setItem("token", res.jwt);
+          localStorage.setItem("user", JSON.stringify(res?.user));
         }
         router.push("/");
         window.location.reload();
