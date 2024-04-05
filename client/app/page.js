@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import Image from "next/image";
 
 import Slider from "@/component/Slider";

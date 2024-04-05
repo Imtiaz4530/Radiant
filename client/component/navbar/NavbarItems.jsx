@@ -14,17 +14,29 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { Logout, ShoppingBasketOutlined } from "@mui/icons-material";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useIsLoggedIn, useLogout } from "@/hooks/useAuth";
+import { useStoreState } from "easy-peasy";
 
 const NavIcon = dynamic(() => import("./NavIcon"), { ssr: false });
 
 const NavbarItem = () => {
+  const { item } = useStoreState((state) => state.cart);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+
+  const { logged, setLogged } = useIsLoggedIn();
+  const { handleLogout } = useLogout(setLogged);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
+
+  const handleLogoutFunc = () => {
+    handleLogout();
+    handleMobileMenuClose();
+  };
+
   const menuId = "primary-search-account-menu";
 
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -45,27 +57,29 @@ const NavbarItem = () => {
       onClose={handleMobileMenuClose}
     >
       {" "}
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <MenuItem>
+      <Link href={"/private/profile"} className="mblink profileButton">
+        <MenuItem onClick={handleMobileMenuClose}>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="primary-search-account-menu"
+            aria-haspopup="true"
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          <p>Profile</p>
+        </MenuItem>
+      </Link>
+      <MenuItem onClick={handleMobileMenuClose}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={item.length} color="error">
             <ShoppingBasketOutlined />
           </Badge>
         </IconButton>
         <p>Cart</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={handleLogoutFunc}>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -111,6 +125,9 @@ const NavbarItem = () => {
             menuId={menuId}
             mobileMenuId={mobileMenuId}
             setMobileMoreAnchorEl={setMobileMoreAnchorEl}
+            logged={logged}
+            handleLogout={handleLogout}
+            item={item}
           />
         </Toolbar>
       </AppBar>

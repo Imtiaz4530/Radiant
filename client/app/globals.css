@@ -30,6 +30,11 @@ body {
   text-decoration: none;
 }
 
+.mblink {
+  color: black;
+  text-decoration: none;
+}
+
 /* ---- TEMPORARY DISCOUNT ---- */
 .discountContainer {
   display: flex;

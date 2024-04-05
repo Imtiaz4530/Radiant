@@ -3,7 +3,7 @@ import { Badge } from "@mui/material";
 import { ShoppingBasketOutlined } from "@mui/icons-material";
 import CartDrawer from "../cart/CartDrawer";
 
-const CartManager = () => {
+const CartManager = ({ item }) => {
   const [state, setState] = useState({
     right: false,
   });
@@ -18,7 +18,7 @@ const CartManager = () => {
     setState({ ...state, right: open });
   };
   return (
-    <Badge badgeContent={4} color="error">
+    <Badge badgeContent={item.length} color="error">
       <ShoppingBasketOutlined onClick={toggleDrawer(true)} />
       <CartDrawer toggleDrawer={toggleDrawer} state={state} />
     </Badge>

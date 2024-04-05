@@ -966,29 +966,9 @@ export interface ApiProfileProfile extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    firstName: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        maxLength: 15;
-      }>;
-    lastName: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        maxLength: 15;
-      }>;
-    phone: Attribute.Integer &
-      Attribute.Required &
-      Attribute.SetMinMax<
-        {
-          max: 11;
-        },
-        number
-      >;
-    address: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        maxLength: 50;
-      }>;
+    name: Attribute.String & Attribute.Required;
+    phone: Attribute.Integer & Attribute.Required;
+    address: Attribute.String & Attribute.Required;
     users_permissions_user: Attribute.Relation<
       'api::profile.profile',
       'oneToOne',

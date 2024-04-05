@@ -6,20 +6,17 @@ import GlobalLoading from "../reusable/loading/GlobalLoading";
 import styles from "@/styles/profile.module.css";
 import SimpleButton from "../reusable/Button";
 import ProfileForm from "./ProfileModal";
+import { useProfile } from "@/hooks/useProfile";
 
 const ProfileContent = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [isProfile, setIsProfile] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const profileData = useProfile(user?.id);
+  const name = profileData?.name || "";
+  const address = profileData?.address || "";
+  const phone = profileData?.phone || "";
 
   useEffect(() => {
     const fetchUserInfo = () => {
@@ -33,6 +30,14 @@ const ProfileContent = () => {
     setLoading(false);
     fetchUserInfo();
   }, []);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   if (loading) {
     <GlobalLoading isLoading={loading} />;
@@ -50,6 +55,11 @@ const ProfileContent = () => {
             </Typography>
           </Box>
           <Box className={styles.content}>
+            {name && (
+              <Typography variant="h4" className={styles.contentValue}>
+                <span className={styles.contentLebel}>Name:</span> {name}
+              </Typography>
+            )}
             <Typography variant="h4" className={styles.contentValue}>
               <span className={styles.contentLebel}>Username:</span>{" "}
               {user?.username}
@@ -57,8 +67,19 @@ const ProfileContent = () => {
             <Typography variant="h4" className={styles.contentValue}>
               <span className={styles.contentLebel}>Email:</span> {user?.email}
             </Typography>
+            {phone && address && (
+              <>
+                <Typography variant="h4" className={styles.contentValue}>
+                  <span className={styles.contentLebel}>Phone:</span> {phone}
+                </Typography>
+                <Typography variant="h4" className={styles.contentValueAddress}>
+                  <span className={styles.contentLebel}>Address:</span>{" "}
+                  {address.toLowerCase()}
+                </Typography>
+              </>
+            )}
 
-            {!isProfile && (
+            {!name && (
               <>
                 <SimpleButton
                   value={"Create Full Profile"}
@@ -66,7 +87,11 @@ const ProfileContent = () => {
                   className={styles.createBTN}
                   onClick={handleClickOpen}
                 />
-                <ProfileForm open={open} handleClose={handleClose} />
+                <ProfileForm
+                  open={open}
+                  handleClose={handleClose}
+                  userId={user?.id}
+                />
               </>
             )}
           </Box>

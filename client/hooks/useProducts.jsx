@@ -132,30 +132,6 @@ export const useProduct = (productId) => {
       attributes: { categoryName },
     } = category?.data;
 
-    // const itemVariation = variation.map((item) => {
-    //   const {
-    //     id,
-    //     color,
-    //     colorCode,
-    //     quantity,
-    //     image: {
-    //       data: {
-    //         id: variationImageID,
-    //         attributes: { url: variationImageURL },
-    //       },
-    //     },
-    //   } = item;
-
-    //   return {
-    //     variationID: id,
-    //     color,
-    //     colorCode,
-    //     quantity,
-    //     variationImageID,
-    //     variationImageURL,
-    //   };
-    // });
-
     productDetails = {
       id: item?.id,
       productImages,

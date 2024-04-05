@@ -1,15 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import { Add, Remove } from "@mui/icons-material";
 import Image from "next/image";
 
 import styles from "@/styles/cartDrawer.module.css";
-import { useStoreState } from "easy-peasy";
 import { imageLoader } from "@/utils/imageLoader";
 import CartQuantity from "./CartQuantity";
 
-const CartContainer = () => {
-  const { item } = useStoreState((state) => state.cart);
-
+const CartContainer = ({ item }) => {
   return (
     <Box className={styles.cart_itemsContainer}>
       {item.map((item) => (

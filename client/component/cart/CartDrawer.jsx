@@ -1,10 +1,13 @@
 import { Box, Drawer, Typography } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import styles from "@/styles/cartDrawer.module.css";
-import SimpleButton from "../reusable/Button";
 import CartContainer from "./cartContainer";
+import { useStoreState } from "easy-peasy";
+import CartSubtotal from "./CartSubtotal";
 
 const CartDrawer = ({ state, toggleDrawer }) => {
+  const { item } = useStoreState((state) => state.cart);
+
   const list = (
     <Box
       className={styles.cart_container}
@@ -21,26 +24,22 @@ const CartDrawer = ({ state, toggleDrawer }) => {
         />
       </Box>
 
-      <CartContainer />
-
-      <Box className={styles.cart_lower}>
-        <Box className={styles.cart_lowerSubtotal}>
-          <Typography className={styles.cart_lowerSubtotalText}>
-            SUBTOTAL
-          </Typography>
-          <Typography className={styles.cart_lowerSubtotalNum}>
-            BDT. 6700.00
-          </Typography>
-        </Box>
-        <Typography className={styles.cart_lowerPolicy}>
-          Shipping, taxes, and discount codes calculated at checkout.
+      {item.length === 0 ? (
+        <Typography
+          variant="h6"
+          display={"flex"}
+          justifyContent={"center"}
+          marginTop={10}
+        >
+          Your Cart Is Currently Empty!
         </Typography>
-        <SimpleButton
-          className={styles.cart_lowerCheckoutBTN}
-          value={"CHECKOUT"}
-          variant={"contained"}
-        />
-      </Box>
+      ) : (
+        <>
+          {" "}
+          <CartContainer item={item} />
+          <CartSubtotal toggleDrawer={toggleDrawer} item={item} />
+        </>
+      )}
     </Box>
   );
 

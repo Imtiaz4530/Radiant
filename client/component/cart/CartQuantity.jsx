@@ -13,11 +13,7 @@ const CartQuantity = ({ productQuantity, id, curQuantity }) => {
 
   return (
     <Box className={styles.cart_itemQuantity}>
-      <Remove
-        fontSize="small"
-        onClick={handleRemoveItem}
-        className={curQuantity === 1 ? `${styles.disabledBTN}` : ""}
-      />
+      <Remove fontSize="small" onClick={handleRemoveItem} />
       <Typography variant="body2" className={styles.cart_itemQuantityText}>
         {curQuantity}
       </Typography>

@@ -39,6 +39,11 @@
   letter-spacing: 1px;
 }
 
+.contentValueAddress {
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
 .contentLebel {
   font-size: 25px;
   letter-spacing: 1px;
@@ -60,8 +65,8 @@
 
 /* <-------------Profile Modal-------------> */
 .error {
-  width: 77%;
-  margin-top: -20px;
+  width: 74%;
+  margin: 2px 0 6px;
 }
 
 .dialog {
@@ -84,4 +89,64 @@
 
 .createBTN {
   width: 200px;
+}
+
+/* ========= Resposive ========== */
+@media (max-width: 900px) {
+  .profileCard {
+    margin-top: 80px;
+    padding: 100px 50px 30px 50px;
+  }
+
+  .thumbnail {
+    width: 150px;
+    height: 150px;
+    top: -80px;
+    left: 36%;
+  }
+
+  .contentValue {
+    font-size: 25px;
+    letter-spacing: 1px;
+  }
+
+  .contentValueAddress {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  .contentLebel {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 700px) {
+  .thumbnail {
+    left: 31%;
+  }
+
+  .contentValue {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+  .contentValueAddress {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+  .contentLebel {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 600px) {
+  .profileContainer {
+    margin-top: 20px;
+  }
+
+  .dialogContent {
+    width: 385px;
+    padding: 0;
+  }
 }

@@ -1,5 +1,6 @@
 import { useStoreActions, useStoreState } from "easy-peasy";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export const useAddToCart = (data, color) => {
   const { addToCart, updateQuantity } = useStoreActions(
@@ -58,7 +59,9 @@ export const useAddToCart = (data, color) => {
 };
 
 export const useQuantityUpdate = (id, productQuantity, curQuantity) => {
-  const { updateQuantity } = useStoreActions((action) => action.cart);
+  const { updateQuantity, removeFromCart } = useStoreActions(
+    (action) => action.cart
+  );
   const [quantity, setQuantity] = useState(curQuantity);
 
   const handleRemoveItem = () => {
@@ -71,6 +74,8 @@ export const useQuantityUpdate = (id, productQuantity, curQuantity) => {
         });
         return newQuantity;
       });
+    } else if (quantity === 1) {
+      removeFromCart(id);
     }
   };
 
@@ -109,4 +114,32 @@ export const useCheckProductAlreadyInCart = (data) => {
   );
 
   return { itemInCart };
+};
+
+export const useCalculateSubtotal = (data) => {
+  const total = data.reduce((acc, cur) => {
+    acc += cur.quantity * cur.price;
+    return acc;
+  }, 0);
+
+  return { total };
+};
+
+export const useCheckCartItem = () => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const { item } = useStoreState((state) => state.cart);
+
+  const isCartEmpty = item.length === 0;
+
+  useEffect(() => {
+    if (isCartEmpty) {
+      router.back();
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+  }, [isCartEmpty]);
+
+  return { loading };
 };

@@ -3,7 +3,6 @@ import { Badge, Box, IconButton } from "@mui/material";
 import { AccountCircle, Logout } from "@mui/icons-material";
 import Link from "next/link";
 
-import { useIsLoggedIn, useLogout } from "@/hooks/useAuth";
 import SimpleButton from "../reusable/Button";
 import CartManager from "./CartManager";
 
@@ -12,10 +11,10 @@ const NavIcon = ({
   mobileMenuId,
   handleProfileMenuOpen,
   setMobileMoreAnchorEl,
+  logged,
+  handleLogout,
+  item,
 }) => {
-  const { logged, setLogged } = useIsLoggedIn();
-  const { handleLogout } = useLogout(setLogged);
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -45,7 +44,7 @@ const NavIcon = ({
               </Link>
             </IconButton>
             <IconButton size="large" color="inherit">
-              <CartManager />
+              <CartManager item={item} />
             </IconButton>
             <IconButton size="large" color="inherit">
               <Badge color="error">
@@ -68,13 +67,22 @@ const NavIcon = ({
           </Box>
         </>
       ) : (
-        <Link href={"/auth/login"} className="link">
-          <SimpleButton
-            value={"LOG-IN"}
-            variant={"outlined"}
-            className={"navLoginButton"}
-          />
-        </Link>
+        <>
+          <IconButton
+            size="large"
+            color="inherit"
+            sx={{ marginRight: { xs: 2, md: 3, lg: 4 } }}
+          >
+            <CartManager item={item} />
+          </IconButton>
+          <Link href={"/auth/login"} className="link">
+            <SimpleButton
+              value={"LOG-IN"}
+              variant={"outlined"}
+              className={"navLoginButton"}
+            />
+          </Link>
+        </>
       )}
     </>
   );

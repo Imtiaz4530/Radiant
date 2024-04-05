@@ -113,6 +113,33 @@
   background-color: black;
 }
 
+.noprofile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  margin-right: 150px;
+  flex-direction: column;
+}
+
+.createBTN {
+  width: 250px;
+  margin-top: 25px !important;
+  margin: auto;
+  background: #000;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 10px 0;
+}
+.createBTN:hover {
+  background-color: black;
+}
+.no_identity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 @media (max-width: 1050px) {
   .order_container {
     margin: 20px 0;
@@ -156,5 +183,15 @@
     font-size: 30px;
     font-weight: 400;
     padding-bottom: 15px;
+  }
+
+  .no_identity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .noprofile {
+    margin-right: 0px;
   }
 }

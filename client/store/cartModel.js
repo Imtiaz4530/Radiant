@@ -18,7 +18,15 @@ const cartModel = persist({
   }),
 
   removeFromCart: action((state, payload) => {
-    state.item = "";
+    const itemRemove = state.item.findIndex((item) => item.uniqId === payload);
+
+    if (itemRemove !== -1) {
+      state.item.splice(itemRemove, 1);
+    }
+  }),
+
+  clearCart: action((state, payloa) => {
+    state.item = [];
   }),
 });
 

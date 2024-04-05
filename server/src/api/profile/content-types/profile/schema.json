@@ -12,25 +12,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "firstName": {
+    "name": {
       "type": "string",
-      "required": true,
-      "maxLength": 15
-    },
-    "lastName": {
-      "type": "string",
-      "required": true,
-      "maxLength": 15
+      "required": true
     },
     "phone": {
       "type": "integer",
-      "required": true,
-      "max": 11
+      "required": true
     },
     "address": {
       "type": "string",
-      "required": true,
-      "maxLength": 50
+      "required": true
     },
     "users_permissions_user": {
       "type": "relation",
